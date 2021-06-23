@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,13 +26,16 @@ public class Usuario {
     @Column(name = "id")
     private Long id;
 
+    @NotEmpty(message = "Informe um nome válido")
     @Column(name = "nome")
     private String nome;
 
+    @NotEmpty(message = "Informe um e-mail válido")
     @Column(name = "email")
     private String email;
 
     @JsonIgnore
+    @NotEmpty(message = "Informe uma senha válida")
     @Column(name = "senha")
     private String senha;
 

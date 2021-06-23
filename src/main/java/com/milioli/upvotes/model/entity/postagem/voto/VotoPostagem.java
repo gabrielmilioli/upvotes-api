@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,17 +27,20 @@ public class VotoPostagem {
     @Column(name = "id")
     private Long id;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "i_postagens")
+    @NotNull(message = "Informe uma postagem válida")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Postagem postagem;
 
     @ManyToOne
     @JoinColumn(name = "i_usuarios")
+    @NotNull(message = "Informe um usuário válido")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Usuario usuario;
 
     @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "Informe um tipo válido")
     @Column(name = "tipo")
     private TipoVotoPostagem tipo;
 

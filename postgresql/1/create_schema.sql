@@ -11,7 +11,7 @@ create table upvotes.usuarios (
 create table upvotes.postagens (
     id bigserial not null primary key,
     titulo character varying(200) not null,
-    descricao character varying(1000) not null,
+    conteudo character varying(1000) not null,
     i_usuarios bigserial not null references upvotes.usuarios(id),
     dh_criacao timestamp not null default CURRENT_TIMESTAMP
 );
