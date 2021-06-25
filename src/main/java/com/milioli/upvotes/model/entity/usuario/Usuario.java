@@ -10,8 +10,11 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "usuarios", schema = AppUtils.SCHEMA_DEFAULT)
@@ -42,5 +45,16 @@ public class Usuario {
     @Column(name = "dh_criacao")
     @Convert(converter = Jsr310JpaConverters.LocalDateTimeConverter.class)
     private LocalDateTime dataHoraCriacao;
+
+    public static String convertSenha(String senha) {
+        byte[] bytesOfMessage = senha.getBytes(StandardCharsets.UTF_8);
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            return Arrays.toString(md.digest(bytesOfMessage));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
